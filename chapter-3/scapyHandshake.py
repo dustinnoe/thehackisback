@@ -6,7 +6,6 @@
 #
 from scapy.all import *
 conf.verb = 0
-ether = Ether(src="de:ad:be:ef:ca:fe")
 
 dst = 'scanme.nmap.org'
 dport = 80
@@ -14,5 +13,6 @@ dport = 80
 syn = IP(dst=dst) / TCP(dport=dport, flags="S")
 synack = sr1(syn)
 
+# Send the ack following the TCP rules
 ack = IP(dst=dst) / TCP(dport=dport, flags="A", seq=synack.ack, ack=synack.seq+1)
 send(ack)
